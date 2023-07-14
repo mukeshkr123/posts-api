@@ -28,14 +28,32 @@ function App() {
   const onDelete = (id) => {
     const originalPost = [...posts];
     setPosts(posts.filter((post) => post.id !== id));
-    axios.delete("https://jsonplaceholder.typicode.com/posts").catch((err) => {
-      setPosts(originalPost);
-    });
+    axios
+      .delete("https://jsonplaceholder.typicode.com/posts" + id)
+      .catch((err) => {
+        setPosts(originalPost);
+      });
+  };
 
-    apiClient.delete("/users" + user.id).catch((error) => {
-      setError(error.message);
-      setUsers(originalUsers);
-    });
+  const addUser = () => {
+    const originalUsers = [...users];
+    const newUser = { id: 0, name: "Mosh" };
+    setUsers([newUser, ...users]);
+    apiClient
+      .post("/users", newUser)
+      .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
+      .catch((err) => {
+        setError(err.message);
+
+        setUsers(originalUsers);
+      });
+  };
+
+  const addPost = () => {
+    const originalPosts = [...posts];
+    const addnewPost = { id: 0, title: "new POST" };
+    setPosts([addnewPost, ...posts]);
+    axios.post("https://jsonplaceholder.typicode.com/posts" + addnewPost);
   };
 
   console.log(posts);
@@ -43,6 +61,9 @@ function App() {
   return (
     <>
       <h1>Post api </h1>
+      <button onClick={addPost} className=" btn btn-primary">
+        ADD
+      </button>
       {isloading ? (
         <div className="spinner-border"></div>
       ) : (
