@@ -23,6 +23,21 @@ function App() {
     fetchUser();
   }, []);
 
+  //delete the posts
+
+  const onDelete = (id) => {
+    const originalPost = [...posts];
+    setPosts(posts.filter((post) => post.id !== id));
+    axios.delete("https://jsonplaceholder.typicode.com/posts").catch((err) => {
+      setPosts(originalPost);
+    });
+
+    apiClient.delete("/users" + user.id).catch((error) => {
+      setError(error.message);
+      setUsers(originalUsers);
+    });
+  };
+
   console.log(posts);
 
   return (
@@ -37,12 +52,17 @@ function App() {
               key={post.id}
               className="list-group-item d-flex justify-content-between"
             >
-              {post.title}{" "}
+              {post.title}
               <div>
                 <button className="btn btn-outline-secondary mx-1">
                   Update
                 </button>
-                <button className="btn btn-primary">Delete</button>
+                <button
+                  onClick={() => onDelete(post.id)}
+                  className="btn btn-primary"
+                >
+                  Delete
+                </button>
               </div>
             </li>
           ))}
