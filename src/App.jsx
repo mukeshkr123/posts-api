@@ -34,29 +34,17 @@ function App() {
         setPosts(originalPost);
       });
   };
-
-  const addUser = () => {
-    const originalUsers = [...users];
-    const newUser = { id: 0, name: "Mosh" };
-    setUsers([newUser, ...users]);
-    apiClient
-      .post("/users", newUser)
-      .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
-      .catch((err) => {
-        setError(err.message);
-
-        setUsers(originalUsers);
-      });
-  };
-
   const addPost = () => {
     const originalPosts = [...posts];
     const addnewPost = { id: 0, title: "new POST" };
     setPosts([addnewPost, ...posts]);
-    axios.post("https://jsonplaceholder.typicode.com/posts" + addnewPost);
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts" + addnewPost)
+      .then(({ data: savedPosts }) => setPosts([savedPosts, ...posts]))
+      .catch((err) => {
+        setPosts(originalPosts);
+      });
   };
-
-  console.log(posts);
 
   return (
     <>
