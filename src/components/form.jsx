@@ -22,7 +22,7 @@ const PostForm = (props) => {
           className="my-1 form-control"
           placeholder="Enter Post Id"
         />
-        {IdErrors && <p>{IdErrors}</p>}
+        {IdErrors && <p className="text-danger">{IdErrors}</p>}
         <label className="my-1" htmlFor="title">
           Title
         </label>
@@ -34,7 +34,7 @@ const PostForm = (props) => {
           className="my-1 form-control"
           placeholder="Enter Title"
         />
-        {TitleErrors && <p>{TitleErrors}</p>}
+        {TitleErrors && <p className="text-danger">{TitleErrors}</p>}
 
         <input type="submit" className="s m-3 btn btn-primary" value="Submit" />
       </form>
