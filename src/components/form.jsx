@@ -3,7 +3,6 @@ const PostForm = (props) => {
     props;
   return (
     <>
-      {" "}
       <form
         onSubmit={handleSubmit((data) => {
           reset();
@@ -35,7 +34,6 @@ const PostForm = (props) => {
           placeholder="Enter Title"
         />
         {TitleErrors && <p className="text-danger">{TitleErrors}</p>}
-
         <input type="submit" className="s m-3 btn btn-primary" value="Submit" />
       </form>
     </>
